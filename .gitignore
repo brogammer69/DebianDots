@@ -14,6 +14,10 @@ Pendrive
 rtl*
 .rustup
 .vim
+.vscode
+.config/Code
+.npm
+.pki
 .viminfo
 .Xauthority
 .xsession-errors
