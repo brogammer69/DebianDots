@@ -1,0 +1,6 @@
+#!/bin/bash
+
+wifiessid="$(/sbin/iwconfig 2>/dev/null | awk '/wlx4401bba0b98f/' | grep ESSID | cut -d: -f2)"
+wifiawk="$(echo $wifiessid | awk -F',' '{gsub(/"/, "", $1); print $1}')"
+wificut="$(echo $wifiawk | cut -d' ' -f1)"
+echo -ne " ${wificut}"

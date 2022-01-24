@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo -ne  " $(xbacklight -get | sed 's/\.[0-9]*$//')"

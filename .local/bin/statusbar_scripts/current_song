@@ -1,0 +1,6 @@
+#!/bin/bash
+
+track="$(mpc current)"
+artist="${track%%- *}"
+title="${track##*- }"
+[[ -n "$artist" ]] && echo -e "${color6}ê${color0}${artist}${color7}${title} ${color0}|"

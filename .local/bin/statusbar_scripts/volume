@@ -1,0 +1,14 @@
+#!/bin/bash
+
+mix=`amixer get Master | tail -1`
+vol="$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')"
+    if [[ $mix == *\[off\]* ]]; then
+      	#red 2                                                
+		echo -e ""
+    elif [[ $mix == *\[on\]* ]]; then
+      	#green 9
+      	echo -e  " ${vol}%"
+    else
+      	#yellow6
+		echo -e ""
+fi

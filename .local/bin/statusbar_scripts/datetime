@@ -1,0 +1,5 @@
+#!/bin/bash
+
+dateonly="$(date "+%a, %d %b")"
+timeonly="$(date "+%I:%M%p")"
+echo -ne " ${dateonly}  ${timeonly}"
