@@ -76,11 +76,6 @@ static const char *browsercmd[]  = { "firefox", NULL };
 static const char *filemgrcmd[]  = { "pcmanfm", NULL };
 static const char *guieditorcmd[]  = { "mousepad", NULL };
 static const char *slockcmd[]  = { "systemctl", "suspend", NULL };
-static const char *volmutecmd[]  = { "amixer","sset", "Master", "toggle", NULL };
-static const char *volinccmd[]  = { "amixer","-q","sset", "Master", "5+", NULL };
-static const char *voldeccmd[]  = { "amixer","-q","sset", "Master", "5-", NULL };
-static const char *brightupcmd[]  = { "xbacklight","-inc","10", NULL };
-static const char *brightdowncmd[]  = { "xbacklight","-dec","10", NULL };
 static const char *fullscrncapture[]  = { "scrot", "/home/ghost/Media/screenshots/%Y-%m-%d-%T-capture.png", NULL }; //don't know why $HOME does not work
 static const char *focuscapture[]  = { "scrot", "-u", "/home/ghost/Media/screenshots/%Y-%m-%d-%T-capture.png", NULL };
 static const char *selectcapture[]  = { "scrot", "-s", "/home/ghost/Media/screenshots/%Y-%m-%d-%T-capture.png", NULL };
@@ -98,14 +93,14 @@ static Key keys[] = {
 	{ MODKEY,		        		XK_e, 	   spawn,          {.v = filemgrcmd } },
 	{ MODKEY,		        		XK_End,    spawn,          {.v = slockcmd } },
 	{ MODKEY,		        		XK_s, 	   spawn,          {.v = showkeybindings } },
-	{ MODKEY,		        		XK_F4, 	   spawn,          SHCMD("st -c float-term -g 60x15+350+200 /home/ghost/.config/suckless/dwm/scripts/powermenu.sh") },
+	{ MODKEY,		        XF86XK_AudioPrev, 	   spawn,          SHCMD("st -c float-term -g 60x15+350+200 powermenu") },
 	{ MODKEY|ShiftMask,             XK_e,	   spawn,          {.v = guieditorcmd } },
 	//Group VolumeAndBrightness
-	{ 0,			        XF86XK_AudioMute,	   spawn,          {.v = volmutecmd } },
-	{ 0,			        XF86XK_AudioLowerVolume,	   spawn,          {.v = voldeccmd } },
-	{ 0,			        XF86XK_AudioRaiseVolume,	   spawn,          {.v = volinccmd } },
-	{ 0,			        		XK_F11,	   spawn,          {.v = brightdowncmd } },
-	{ 0,			        		XK_F12,	   spawn,          {.v = brightupcmd } },
+	{ 0,			        XF86XK_AudioMute,			   spawn,          SHCMD("killsleep && amixer sset Master toggle") },
+	{ 0,			        XF86XK_AudioLowerVolume,	   spawn,          SHCMD("killsleep && amixer -q sset Master 5-") },
+	{ 0,			        XF86XK_AudioRaiseVolume,	   spawn,          SHCMD("killsleep && amixer -q sset Master 5+") },
+	{ 0,			        XF86XK_MonBrightnessDown,	   spawn,          SHCMD("killsleep && xbacklight -dec 10") },
+	{ 0,			        XF86XK_MonBrightnessUp,		   spawn,          SHCMD("killsleep && xbacklight -inc 10") },
 	//Group ToggleBar
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	//Group StackRotationAndSizeManipulation

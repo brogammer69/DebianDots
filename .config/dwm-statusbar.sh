@@ -81,10 +81,10 @@ while true; do
   let cpu_used="100 * ($cpu_interval - ($cpu_idle_now-${cpu_idle_old:-0})) / $cpu_interval"
 
   # output vars
-print_cpu_used() {
-  printf "%-1b" " ${cpu_used}%"
-#"%-10b" "${color7}CPU:${cpu_used}%"
-}
+  print_cpu_used() {
+    printf "%-1b" " ${cpu_used}%"
+    #"%-10b" "${color7}CPU:${cpu_used}%"
+  }
  
   # Pipe to status bar, not indented due to printing extra spaces/tabs
   xsetroot -name "[$(print_cpu_used)|$(print_cputemp)|$(print_ram)|$(print_brightness)|$(print_wifiqual)|$(print_hddfree)|$(print_volume)|$(print_power)|$(print_datetime)]"
@@ -93,5 +93,5 @@ print_cpu_used() {
   cpu_idle_old=$cpu_idle_now
   cpu_total_old=$cpu_total_now
   # loop stats every 10 second
-  sleep 10
+  sleep 60
  done

@@ -2,7 +2,7 @@
 
 # all \e[numberm are color codes
 # menu
-echo -e "\t\t\e[1m\e[34mPower Menu:"
+echo -e "\t\t\e[1m\e[34mPOWER MENU"
 echo -e "\e[1m\e[32mSelect an option:"
 echo -e "\t\e[31mp (power off)"
 echo -e "\t\e[33mr (reboot)"
