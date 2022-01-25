@@ -93,6 +93,7 @@ alias ll='ls -lAh'
 alias shut='/sbin/shutdown now'
 alias rbt='/sbin/reboot'
 alias v='vim'
+alias ce='cd ~/.config/suckless/dwm && v config.def.h'
 #alias la='ls -A'
 #alias l='ls -CF'
 

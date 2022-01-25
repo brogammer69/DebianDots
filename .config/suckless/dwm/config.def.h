@@ -35,6 +35,7 @@ static const Rule rules[] = {
 	{ "Gimp",    		NULL,		NULL,           0,         1,          0,           0,        -1 },
 	{ "Firefox", 		NULL,		NULL,           1 << 1,    0,          0,          -1,        -1 },
 	{ "Yad",     		"yad",		"YAD", 			0,         1,          0,			0,		  -1 },
+	{ "float-term",  	NULL,		NULL, 			0,         1,          0,			0,		  -1 },
 	{ "st-256color",	NULL,		NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,      		NULL,		"Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
@@ -97,6 +98,7 @@ static Key keys[] = {
 	{ MODKEY,		        		XK_e, 	   spawn,          {.v = filemgrcmd } },
 	{ MODKEY,		        		XK_End,    spawn,          {.v = slockcmd } },
 	{ MODKEY,		        		XK_s, 	   spawn,          {.v = showkeybindings } },
+	{ MODKEY,		        		XK_F4, 	   spawn,          SHCMD("st -c float-term -g 60x15+350+200 /home/ghost/.config/suckless/dwm/scripts/powermenu.sh") },
 	{ MODKEY|ShiftMask,             XK_e,	   spawn,          {.v = guieditorcmd } },
 	//Group VolumeAndBrightness
 	{ 0,			        XF86XK_AudioMute,	   spawn,          {.v = volmutecmd } },
