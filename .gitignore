@@ -23,6 +23,8 @@ rtl*
 .xsession-errors
 .local/share
 .config/Mousepad
+.config/vlc/
+.config/Qt*
 .config/neofetch
 .config/pcmanfm
 .config/htop

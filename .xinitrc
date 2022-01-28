@@ -16,7 +16,8 @@ compton &
 /usr/sbin/tlp start &
 
 #for status bar 
-/home/ghost/.config/dwm-statusbar.sh &
+#/home/ghost/.config/dwm-statusbar.sh &
+dwm-statusbar &
 
 #for not automatically locking screen while playing videos
 xautolock -time 10 -locker 'systemctl suspend' -corners 0+0- -cornerdelay 1 -cornerredelay 5 -cornersize 10 -secure &

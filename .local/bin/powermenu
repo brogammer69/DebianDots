@@ -22,9 +22,9 @@ if [ "$answer" == "p" ]; then
 elif [ "$answer" == "r" ]; then
 	    systemctl reboot
 elif [ "$answer" == "s" ]; then
-    systemctl suspend
+    systemctl suspend 
 elif [ "$answer" == "h" ]; then
-    systemctl hibernate
+    systemctl hibernate 
 elif [ "$answer" == "l" ]; then
     slock
 else

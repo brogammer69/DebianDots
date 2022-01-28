@@ -96,11 +96,11 @@ static Key keys[] = {
 	{ MODKEY,		        XF86XK_AudioPrev, 	   spawn,          SHCMD("st -c float-term -g 60x15+350+200 powermenu") },
 	{ MODKEY|ShiftMask,             XK_e,	   spawn,          {.v = guieditorcmd } },
 	//Group VolumeAndBrightness
-	{ 0,			        XF86XK_AudioMute,			   spawn,          SHCMD("killsleep && amixer sset Master toggle") },
-	{ 0,			        XF86XK_AudioLowerVolume,	   spawn,          SHCMD("killsleep && amixer -q sset Master 5-") },
-	{ 0,			        XF86XK_AudioRaiseVolume,	   spawn,          SHCMD("killsleep && amixer -q sset Master 5+") },
-	{ 0,			        XF86XK_MonBrightnessDown,	   spawn,          SHCMD("killsleep && xbacklight -dec 10") },
-	{ 0,			        XF86XK_MonBrightnessUp,		   spawn,          SHCMD("killsleep && xbacklight -inc 10") },
+	{ 0,			        XF86XK_AudioMute,			   spawn,          SHCMD("amixer sset Master toggle && killsleep") },
+	{ 0,			        XF86XK_AudioLowerVolume,	   spawn,          SHCMD("amixer -q sset Master 5- && killsleep") },
+	{ 0,			        XF86XK_AudioRaiseVolume,	   spawn,          SHCMD("amixer -q sset Master 5+ && killsleep") },
+	{ 0,			        XF86XK_MonBrightnessDown,	   spawn,          SHCMD("xbacklight -dec 10 && killsleep") },
+	{ 0,			        XF86XK_MonBrightnessUp,		   spawn,          SHCMD("xbacklight -inc 10 && killsleep") },
 	//Group ToggleBar
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	//Group StackRotationAndSizeManipulation
