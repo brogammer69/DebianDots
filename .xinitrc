@@ -9,7 +9,8 @@
 
 
 #start some nice programs
-nitrogen --set-zoom-fill --random ~/Media/Wallpapers/ &
+#nitrogen --set-zoom-fill --random ~/Media/Wallpapers/ &
+feh --recursive --bg-fill --randomize ~/Media/Wallpapers/ &
 compton &
 
 #for battery logentivity but meh!
@@ -21,6 +22,9 @@ dwm-statusbar &
 
 #for not automatically locking screen while playing videos
 xautolock -time 10 -locker 'systemctl suspend' -corners 0+0- -cornerdelay 1 -cornerredelay 5 -cornersize 10 -secure &
+
+#for some wierd andriod-studio bug in dwm
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 while true; do
 	dwm >/dev/null 2>&1
