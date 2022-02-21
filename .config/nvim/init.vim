@@ -1,16 +1,20 @@
 "config section
 syntax on
 set number
+set relativenumber "line numbers are relative to the postition of cursor
 set noshowmode "the mode below lightline disappears, ie the default is disabled
 set nowrap "lines are not wraped if longer than the window
-set tabstop=4 "number of spaces for a tab
-set shiftwidth=4 "how many spaces for each level of indentation
+set expandtab "convert tab to spaces :(
+set tabstop=2 "number of spaces for a tab
+set shiftwidth=2 "how many spaces for each level of indentation
+set softtabstop=2 "don't know that this does
 set autoindent "preserve indentation
 set smartindent "smart indentation for language
 set incsearch "incremental search
 set hlsearch "highlight search patterns
+set nohlsearch "remove highlighting after searching
 set ignorecase "case insensitive search
-filetype plugin indent on "enalbe syntax highlighting
+filetype plugin indent on "enable syntax highlighting
 set noswapfile "vim generally makes a swap file of the opened file. So noswapfile
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "no repetation of comment to new line
 
@@ -18,17 +22,22 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "
 "using vim-plugg
 call plug#begin("~/.vim/plugged")
   " Plugin Section
-  	Plug 'itchyny/lightline.vim'
-  	Plug 'ap/vim-css-color'
-  	Plug 'morhetz/gruvbox'
-  	Plug 'scrooloose/nerdtree'
+ 	Plug 'itchyny/lightline.vim'
+ 	Plug 'ap/vim-css-color'
+	Plug 'Yggdroot/indentLine'
+	Plug 'gruvbox-community/gruvbox'
+ 	Plug 'scrooloose/nerdtree'
+	Plug 'itchyny/vim-gitbranch'
 	Plug 'ryanoasis/vim-devicons'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+	Plug 'junegunn/fzf.vim'
 call plug#end()
 
 "Config Section
 colorscheme gruvbox
-set background=dark
+highlight Normal guibg=none
+
 
 " config for file manager
 let g:NERDTreeShowHidden = 1
@@ -38,12 +47,12 @@ let g:NERDTreeStatusline = ''
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Toggle
-nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+nnoremap <silent> <C-t> :NERDTreeToggle<CR>
 
 "config for auto closing parenthesis and quotes
 inoremap ( ()<left>
 inoremap [ []<left>
-inoremap { {}<left>
+inoremap { {  }<left><left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
@@ -56,8 +65,18 @@ inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\
 set laststatus=2 "lightline appears
 set ttimeoutlen=30
 let g:lightline = {
-	      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'gitbranch#name'
+      \ },
       \ }
+
+"config section for coc autocompletion
+inoremap <expr> <Tab> pumvisible() ? coc#_select_confirm() : "<Tab>"
 
 "config section for coc (copied directly from readme)
 
@@ -144,6 +163,10 @@ endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
+" Set space as Leader key
+nnoremap <SPACE> <Nop>
+let mapleader=" "
+
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
@@ -229,3 +252,16 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+" Config section for fzf
+" Fzf
+nnoremap <leader><leader> :GFiles<CR>
+nnoremap <leader>fi       :Files<CR>
+nnoremap <leader>C        :Colors<CR>
+nnoremap <leader><CR>     :Buffers<CR>
+nnoremap <leader>fl       :Lines<CR>
+nnoremap <leader>ag       :Ag! <C-R><C-W><CR>
+nnoremap <leader>m        :History<CR>
+
+" Config for indentLine
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
