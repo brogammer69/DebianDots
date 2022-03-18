@@ -33,9 +33,10 @@ static const Rule rules[] = {
 	 */
 	/* class   			instance	title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "Gimp",    		NULL,		NULL,           0,         1,          0,           0,        -1 },
-	{ "Firefox", 		NULL,		NULL,           1 << 1,    0,          0,          -1,        -1 },
+	{ "Brave-browser", 		NULL,		NULL,           1 << 1,    0,          0,          -1,        -1 },
 	{ "Yad",     		"yad",		"YAD", 			0,         1,          0,			0,		  -1 },
 	{ "float-term",  	NULL,		NULL, 			0,         1,          0,			0,		  -1 },
+	{ "float-term-vlc",  	NULL,		NULL, 			1 << 8,         1,          0,			0,		  -1 },
 	{ "st-256color",	NULL,		NULL,           0,         0,          1,           0,        -1 },
 	{ NULL,      		NULL,		"Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
@@ -72,8 +73,8 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *htopcmd[]  = { "st", "-e", "htop", NULL };
-static const char *browsercmd[]  = { "firefox", NULL };
-static const char *filemgrcmd[]  = { "pcmanfm", NULL };
+static const char *browsercmd[]  = { "brave-browser", NULL };
+static const char *filemgrcmd[]  = { "thunar", NULL };
 static const char *guieditorcmd[]  = { "mousepad", NULL };
 static const char *slockcmd[]  = { "systemctl", "suspend", NULL };
 static const char *fullscrncapture[]  = { "scrot", "/home/ghost/Media/screenshots/%Y-%m-%d-%T-capture.png", NULL }; //don't know why $HOME does not work
@@ -92,6 +93,7 @@ static Key keys[] = {
 	{ MODKEY,		        		XK_w,	   spawn,          {.v = browsercmd } },
 	{ MODKEY,		        		XK_e, 	   spawn,          {.v = filemgrcmd } },
 	{ MODKEY,		        		XK_End,    spawn,          {.v = slockcmd } },
+	{ MODKEY,		        		XK_v,    spawn,          SHCMD("st -c float-term-vlc -g 60x15+350+200 nvlc ~/Media/Musics") },
 	{ MODKEY,		        		XK_s, 	   spawn,          {.v = showkeybindings } },
 	{ MODKEY,		        XF86XK_AudioPrev, 	   spawn,          SHCMD("st -c float-term -g 60x15+350+200 powermenu") },
 	{ MODKEY|ShiftMask,             XK_e,	   spawn,          {.v = guieditorcmd } },
