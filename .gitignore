@@ -2,6 +2,7 @@
 .cache
 .cargo
 .gitconfig
+.git-crede*
 Documents
 Downloads
 .gtk*
