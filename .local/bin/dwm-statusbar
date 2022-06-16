@@ -36,7 +36,7 @@ print_wifiqual() {
 }
 
 print_hddfree() {
-  hddfree="$(df -Ph /dev/sdb1 | awk '$3 ~ /[0-9]+/ {print $4}')"
+  hddfree="$(df -Ph /dev/disk/by-uuid/d67cbd83-c885-4917-a84b-849c614cce92 | awk '$3 ~ /[0-9]+/ {print $4}')"
   echo -ne " ${hddfree}"
 }
 
