@@ -20,7 +20,7 @@ print_power() {
   else
     echo -ne "Batt:${battery}%"
     if [ "$battery" -eq 28 ]; then
-      cmd="notify-send -u normal 'Battery Low' 'Battery remain ${battery}%, Please recharge'"
+      cmd="notify-send -u low 'Battery Low' 'Battery remain ${battery}%, Please recharge'"
       eval $cmd
     elif [ "$battery" -eq 15 ]; then
       cmd="notify-send -u critical 'Battery Low' 'Battery remain ${battery}%, Please recharge'"
