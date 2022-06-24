@@ -19,15 +19,16 @@ print_power() {
     echo -ne "Batt:${battery}%"
   else
     echo -ne "Batt:${battery}%"
-    if [ "$battery" -eq 28 ]; then
+    if [ "$battery" -eq 25 ]; then
       cmd="notify-send -u low 'Battery Low' 'Battery remain ${battery}%, Please recharge'"
       eval $cmd
     elif [ "$battery" -eq 15 ]; then
       cmd="notify-send -u critical 'Battery Low' 'Battery remain ${battery}%, Please recharge'"
       eval $cmd
     elif [ "$battery" -eq 5 ]; then
-      cmd="notify-send -u critical 'Battery Critically Low' 'Suspending the machine'"
+      cmd="notify-send -u critical 'Battery Critically Low' 'Suspending the machine in 5 seconds'"
       eval $cmd
+      sleep 5
       cmd="systemctl suspend"
       eval $cmd
     fi
