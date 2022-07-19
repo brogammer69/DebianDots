@@ -23,6 +23,9 @@ dwm-statusbar &
 #for not automatically locking screen while playing videos
 xautolock -time 10 -locker 'systemctl suspend' -corners 0+0- -cornerdelay 1 -cornerredelay 5 -cornersize 10 -secure &
 
+#for clipboard manager. This is the daemon
+clipmenud &
+
 #for some wierd andriod-studio bug in dwm
 export _JAVA_AWT_WM_NONREPARENTING=1
 

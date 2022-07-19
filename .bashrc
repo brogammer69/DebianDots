@@ -94,6 +94,7 @@ alias shut='/sbin/shutdown now'
 alias rbt='/sbin/reboot'
 alias v='vim'
 alias ce='cd ~/.config/suckless/dwm && v config.def.h'
+alias tlp='sudo tlp start' 
 #alias la='ls -A'
 #alias l='ls -CF'
 
