@@ -23,5 +23,9 @@ libx11-xcb-dev
 libxrandr-dev
 
 ---
-
-
+## Some installed utility packages
+ly - the minimal display manager
+xautolock - tool to lock the display if idle
+clipmenu - clipboard history manager paired with dmenu
+dunst and notify-send - for notifications
+feh - for setting wallpapers

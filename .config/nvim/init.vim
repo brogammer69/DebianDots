@@ -25,8 +25,8 @@ call plug#begin("~/.vim/plugged")
  	Plug 'itchyny/lightline.vim'
  	Plug 'ap/vim-css-color'
 	Plug 'Yggdroot/indentLine'
-	Plug 'gruvbox-community/gruvbox'
  	Plug 'scrooloose/nerdtree'
+  Plug 'morhetz/gruvbox'
 	Plug 'itchyny/vim-gitbranch'
 	Plug 'ryanoasis/vim-devicons'
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -35,6 +35,11 @@ call plug#begin("~/.vim/plugged")
 call plug#end()
 
 "Config Section
+set background=dark
+
+"Config section for gruvbox
+let g:gruvbox_italic=1
+
 colorscheme gruvbox
 highlight Normal guibg=none
 
@@ -253,6 +258,12 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
+" coc config end
+
+" open terminal below 
+"nnoremap <leader>t: below terminal<CR>
+nnoremap <leader>t :below 10sp term://$SHELL<cr> "this is for neovim. Creates a 10 row terminal below the current buffer
+
 " Config section for fzf
 " Fzf
 nnoremap <leader><leader> :GFiles<CR>
@@ -265,3 +276,4 @@ nnoremap <leader>m        :History<CR>
 
 " Config for indentLine
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+
