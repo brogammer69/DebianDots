@@ -11,6 +11,11 @@
 #  [[ -n "$artist" ]] && echo -e "${color6}ê${color0}${artist}${color7}${title} ${color0}|"
 #}
 
+network_speed(){
+  speed="$(awk '{i++; recv[i]=$1; trans[i]=$2}; END{print (recv[2]-recv[1])/1000 "" (trans[2]-trans[1])/1000 ""}' <(cat /proc/net/dev | grep wlx4401bba0b98f | awk -F' ' '{print $2 " " $10}'; sleep 1; cat /proc/net/dev | grep wlx4401bba0b98f | awk -F' ' '{print $2 " " $10}'))"
+  echo -ne "$speed"  
+}
+
 print_power() {
   status="$(cat /sys/class/power_supply/AC/online)"
   battery="$(cat /sys/class/power_supply/BAT0/capacity)"
@@ -100,7 +105,7 @@ while true; do
   }
  
   # Pipe to status bar, not indented due to printing extra spaces/tabs
-  xsetroot -name "[$(print_cpu_used)|$(print_cputemp)|$(print_ram)|$(print_brightness)|$(print_wifiqual)|$(print_hddfree)|$(print_volume)|$(print_power)|$(print_datetime)]"
+  xsetroot -name "[$(print_cpu_used)|$(print_cputemp)|$(print_ram)|$(print_brightness)|$(print_wifiqual) $(network_speed)|$(print_hddfree)|$(print_volume)|$(print_power)|$(print_datetime)]"
 
   # reset old rates
   cpu_idle_old=$cpu_idle_now

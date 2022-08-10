@@ -62,17 +62,19 @@ fullURL="${baseurl}${url}/"
 curl -s $fullURL > $cachedir/tmp.html
 #the below code is not working in rtorrent
 magnet=$(grep -Po "magnet:\?xt=urn:btih:[a-zA-Z0-9]*" $cachedir/tmp.html | head -n 1) 
+
 #so I changed the regex
 #magnet=$(grep -Po "magnet:\?xt=urn:btih:[a-zA-Z0-9%-=+&.]*" $cachedir/tmp.html | head -n 1) 
 
-echo $magnet >> $HOME/Media/Movies/Torrents/tmp.txt
-
 # Adding link to torrent client
-#deluge-console add "$magnet"
-#rtorrent '$magnet' &
-#echo -e "\b$magent" > /proc/$(pidof aria2c)/fd/0
-echo "aria2c $magnet">> $HOME/Media/Movies/Torrents/tmp.txt
-aria2c "$magnet" &
+# deluge-console add "$magnet"
+# rtorrent '$magnet' &
+# echo -e "\b$magent" > /proc/$(pidof aria2c)/fd/0
+# echo "aria2c $magnet">> $HOME/Media/Movies/Torrents/tmp.txt
+# aria2c "$magnet" &
+echo $magnet >> $HOME/Media/Movies/Torrents/tmp.txt
+# stream instead of downloading
+peerflix -v $magnet 
 
 # Simple notification
 notify-send "⬇️  Start downloading File 📁"
