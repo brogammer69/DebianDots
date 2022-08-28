@@ -1,0 +1,58 @@
+set folder = "imaps://himalpou101@gmail.com@imap.gmail.com:993"
+set smtp_url = "smtps://himalpou101@gmail.com@smtp.gmail.com:465"
+#set ssl_starttls = yes
+#set ssl_force_tls = yes
+
+#personal configs
+set from = "himalpou101@gmail.com"
+set realname = "Himal Poudel"
+set smtp_pass = "yourpasswordhere"
+set imap_pass = "yourpasswordhere"
+
+#sort mail in descending order
+set sort=threads
+set sort_browser=date
+set sort_aux=reverse-last-date-received
+
+#folders
+set spoolfile = "+Inbox"
+set record = "+[Gmail]/Sent\ Mail"
+set postponed = "+[Gmail]/Drafts"
+set trash = "+[Gmail]/Trash"
+
+#mailboxes =INBOX =Sent =Trash
+mailboxes "=INBOX" "=[Gmail]/Important" "=[Gmail]/Drafts" "=[Gmail]/Sent\ Mail" "=[Gmail]/Starred" "=[Gmail]/Trash" "=[Gmail]/Spam"
+
+#set sidebar showing folders
+set sidebar_visible = yes
+set sidebar_format="%B%?F? [%F]?%* %?N?%N/?%S"
+set sidebar_delim_chars = '|'
+# color of folders with new mail
+color sidebar_new yellow default
+#key bindings
+bind index,pager \CP sidebar-prev                 # Ctrl-n to select next folder
+bind index,pager \CN sidebar-next                 # Ctrl-p to select previous folder
+bind index,pager \Co sidebar-open                 # Ctrl-o to open selected folder
+bind index,pager \CB sidebar-toggle-visible       # Ctrl-b to toggle visibility of the sidebar
+#sidebar colors
+# Note: All color operations are of the form:
+#       color OBJECT FOREGROUND BACKGROUND
+# Sidebar-specific color of the selected item
+color sidebar_indicator black white
+# Color of the highlighted, but not open, mailbox.
+color sidebar_highlight black color8
+# Color of the divider separating the Sidebar from NeoMutt panels
+color sidebar_divider color8 black
+# Color to give mailboxes containing flagged mail
+color sidebar_flagged red black
+# Color to give mailboxes containing new mail
+color sidebar_new green black
+# Color to give mailboxes containing no new/flagged mail, etc.
+color sidebar_ordinary color245 default
+# Color to give mailboxes containing no unread mail
+color sidebar_unread color136 default
+
+#set colors
+source colors.muttrc
+
+
