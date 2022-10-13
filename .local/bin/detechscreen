@@ -1,0 +1,12 @@
+#!/bin/sh
+
+#required number of connections to execute secmon script
+required=2
+
+# Get the number of connected screens
+connected="$(xrandr | grep -sw 'connected' | wc -l)"
+
+if [ $connected -eq $required ]; then
+  . $HOME/.local/bin/secmon
+fi
+

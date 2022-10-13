@@ -7,6 +7,8 @@
 # invoke global X session script
 ./etc/X11/Xsession
 
+#check to see if second monitor is connected
+~/.local/bin/detechscreen &
 
 #start some nice programs
 #nitrogen --set-zoom-fill --random ~/Media/Wallpapers/ &
