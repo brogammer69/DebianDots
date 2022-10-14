@@ -28,6 +28,7 @@ xautolock - tool to lock the display if idle
 clipmenu - clipboard history manager paired with dmenu
 dunst and notify-send - for notifications
 feh - for setting wallpapers
+xdotool - for moving mouse curosr to primary monitor in dual monitor setup
 
 ## Steps for setup
 1. First install minimal iso (or any other)
