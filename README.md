@@ -7,8 +7,10 @@ fullgaps
 pertag
 swallow
 rotatestack
-gaplessgrid
 statusallmons
+attachasideandbelow
+preservetag
+status2d
 
 ## Required packages to build my build of dwm
 libx11-dev

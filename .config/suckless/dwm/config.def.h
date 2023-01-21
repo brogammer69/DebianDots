@@ -48,13 +48,11 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
-#include "gaplessgrid.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "[F]",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
-	{ "[G]",      gaplessgrid },
 };
 
 /* key definitions */
@@ -98,7 +96,7 @@ static Key keys[] = {
 	{ MODKEY,                         XK_n,                         spawn,            SHCMD("feh --recursive --bg-fill --randomize ~/Media/Wallpapers/") },
 	{ MODKEY|ShiftMask,               XK_v,                         spawn,            SHCMD("st -c float-term-vlc -g 60x15+350+200 nvlc ~/Media/Musics") },
 	{ MODKEY,                         XK_s,                         spawn,            {.v = showkeybindings } },
-	{ MODKEY,                         XF86XK_AudioPrev,             spawn,            SHCMD("st -c float-term -g 60x15+350+200 powermenu") },
+	{ MODKEY,                         XK_grave,                     spawn,            SHCMD("st -c float-term -g 60x15+350+200 powermenu") }, //grave should be changed to XF86XK_AudioPrev
 	{ MODKEY|ShiftMask,               XK_e,                         spawn,            {.v = guieditorcmd } },
 	//Group VolumeAndBrightness
 	{ 0,                              XF86XK_AudioMute,             spawn,            SHCMD("amixer sset Master toggle; killsleep") },

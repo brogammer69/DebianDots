@@ -1,19 +1,8 @@
 #!/bin/bash
 
-# ~/bin/dwm-statusbar
-# Adapted from w0ng status bar: https://github.com/w0ng/bin
-# Adapted from jasonwryan status bar: https://bitbucket.org/jasonwryan/shiv/src/1ad5950c3108a4e5a9dcb78888a1ccfeb9252b45/Scripts/dwm-status?at=default
-
-#print_song_info() {
-#  track="$(mpc current)"
-#  artist="${track%%- *}"
-#  title="${track##*- }"
-#  [[ -n "$artist" ]] && echo -e "${color6}ê${color0}${artist}${color7}${title} ${color0}|"
-#}
-
 network_speed(){
   speed="$(awk '{i++; recv[i]=$1; trans[i]=$2}; END{print (recv[2]-recv[1])/1000 "" (trans[2]-trans[1])/1000 ""}' <(cat /proc/net/dev | grep wlx4401bba0b98f | awk -F' ' '{print $2 " " $10}'; sleep 1; cat /proc/net/dev | grep wlx4401bba0b98f | awk -F' ' '{print $2 " " $10}'))"
-  echo -ne "$speed"  
+  echo -ne "$speed" 
 }
 
 print_power() {
@@ -21,9 +10,13 @@ print_power() {
   battery="$(cat /sys/class/power_supply/BAT0/capacity)"
   timer="$(acpi -b | grep "Battery" | awk '{print $5}' | cut -c 1-5)"
   if [ "${status}" == 1 ]; then
-    echo -ne "Batt:${battery}%"
+    echo -ne "^d^ ^b#f4e6e2^^c#1d2021^ Batt: ^b#ffffff^ ${battery}% "
+    if [ "$battery" -eq 96 ]; then
+      cmd="notify-send 'Battery Almost Full' 'Battery is ${battery}%, You can unplug the charger'"
+      eval $cmd
+    fi
   else
-    echo -ne "Batt:${battery}%"
+    echo -ne "^d^ ^b#cc241d^^c#1d2021^ Batt:^b#fb4934^ ${battery}% "
     if [ "$battery" -eq 25 ]; then
       cmd="notify-send -u low 'Battery Low' 'Battery remain ${battery}%, Please recharge'"
       eval $cmd
@@ -43,19 +36,19 @@ print_power() {
 print_ram() {
 	mem_used=$(free -h | awk '/Mem:/ { print $3 }' | cut -f1 -d 'i')
 	mem_free=$(free -h | awk '/Mem:/ { print $2 }' | cut -f1 -d 'i')
-	echo  -ne " $mem_used/$mem_free"
+	echo  -ne "^d^ ^b#689d6a^^c#1d2021^  ^b#8ec07c^ ${mem_used}/${mem_free} "
 }
 
 print_wifiqual() {
   wifiessid="$(/sbin/iwconfig 2>/dev/null | awk '/wlx4401bba0b98f/' | grep ESSID | cut -d: -f2)"
   wifiawk="$(echo $wifiessid | awk -F',' '{gsub(/"/, "", $1); print $1}')"
   wificut="$(echo $wifiawk | cut -d' ' -f1)"
-  echo -ne " ${wificut}"
+  echo -ne "^d^ ^b#d79921^^c#1d2021^  ^b#fabd2f^ ${wificut}"
 }
 
 print_hddfree() {
   hddfree="$(df -Ph /dev/disk/by-uuid/d67cbd83-c885-4917-a84b-849c614cce92 | awk '$3 ~ /[0-9]+/ {print $4}')"
-  echo -ne " ${hddfree}"
+  echo -ne "^d^ ^b#458588^^c#1d2021^  ^b#83a598^ ${hddfree} "
 }
 
  print_volume(){
@@ -63,29 +56,30 @@ print_hddfree() {
     vol="$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')"
     if [[ $mix == *\[off\]* ]]; then
       #red 2                                                
-      echo -e ""
+      echo -e "^d^ ^b#689d6a^^c#1d2021^  ^b#8ec07c^ "
     elif [[ $mix == *\[on\]* ]]; then
       #green 9
-      echo -e  " ${vol}%"
+      echo -e  "^d^ ^b#689d6a^^c#1d2021^  ^b#8ec07c^ ${vol}% "
     else
       #yellow6
-      echo -e ""
+      echo -e "^d^ ^b#689d6a^^c#1d2021^  ^b#8ec07c^ "
     fi
  }
 
 print_brightness() {
-	echo -ne  " $(xbacklight -get | sed 's/\.[0-9]*$//')"
+  brightness="$(xbacklight -get | sed 's/\.[0-9]*$//')"
+	echo -ne  "^d^ ^b#ffffff^^c#1d2021^  ^b#f4e6e2^ ${brightness} "
 }
 
 print_datetime() {
   dateonly="$(date "+%a, %d %b")"
   timeonly="$(date "+%I:%M%p")"
-  echo -ne " ${dateonly}  ${timeonly}"
+  echo -ne "^d^ ^b#458588^^c#1d2021^  ^b#83a598^ ${dateonly} ^d^ ^b#689d6a^^c#1d2021^  ^b#8ec07c^ ${timeonly} "
 }
 
 print_cputemp() {
     cputemp="$(sensors|awk 'BEGIN{i=0;t=0;b=0}/id [0-9]/{b=$4};/Core/{++i;t+=$3}END{if(i>0){printf("%0.1f\n",t/i)}else{sub(/[^0-9.]/,"",b);print b}}')"
-    echo -ne " ${cputemp} °C"
+    echo -ne "^d^ ^b#cc241d^^c#1d2021^  ^b#fb4934^ ${cputemp} °C "
 
 }
 
@@ -100,12 +94,12 @@ while true; do
 
   # output vars
   print_cpu_used() {
-    printf "%-1b" " ${cpu_used}%"
+    printf "%-1b" "^d^ ^b#98971a^^c#1d2021^  ^b#b8bb26^ ${cpu_used}% "
     #"%-10b" "${color7}CPU:${cpu_used}%"
   }
  
   # Pipe to status bar, not indented due to printing extra spaces/tabs
-  xsetroot -name "[$(print_cpu_used)|$(print_cputemp)|$(print_ram)|$(print_brightness)|$(print_wifiqual) $(network_speed)|$(print_hddfree)|$(print_volume)|$(print_power)|$(print_datetime)]"
+  xsetroot -name "$(print_cpu_used)$(print_cputemp)$(print_ram)$(print_brightness)$(print_wifiqual) $(network_speed)$(print_hddfree)$(print_volume)$(print_power)$(print_datetime)"
 
   # reset old rates
   cpu_idle_old=$cpu_idle_now

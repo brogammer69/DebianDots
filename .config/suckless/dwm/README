@@ -7,23 +7,6 @@ Requirements
 ------------
 In order to build dwm you need the Xlib header files.
 
-REQIRED PACKAGES TO COMPILE MY BUILD OF DWM
--------------------------------------------
-libx11-dev
-libxft-dev
-libxinerama-dev
-libxcb-res0-dev
-libx11-xcb1 --this or below this
-libx11-xcb-dev
-
-PATCHES USED
-------------
-fullgaps
-pertag
-swallow
-rotatestack
-gaplessgrid
-statusallmons
 
 Installation
 ------------
