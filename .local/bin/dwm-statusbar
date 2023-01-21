@@ -36,7 +36,7 @@ print_power() {
 print_ram() {
 	mem_used=$(free -h | awk '/Mem:/ { print $3 }' | cut -f1 -d 'i')
 	mem_free=$(free -h | awk '/Mem:/ { print $2 }' | cut -f1 -d 'i')
-	echo  -ne "^d^ ^b#689d6a^^c#1d2021^  ^b#8ec07c^ ${mem_used}/${mem_free} "
+	echo  -ne "^d^ ^b#689d6a^^c#1d2021^  ^b#8ec07c^ ${mem_used}/${mem_free} "
 }
 
 print_wifiqual() {
