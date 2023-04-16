@@ -13,27 +13,27 @@ setopt PROMPT_SUBST
 
 #PROMPT='[%~]%F{green}${vcs_info_msg_0_}%F{white}$ '
 #PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
-PROMPT='%B%{$fg[blue]%}[%b%{$fg[green]%}%~%B%{$fg[blue]%}]%b%{$fg[magenta]%}${vcs_info_msg_0_}%{$reset_color%}$%b '
+PROMPT='%{$fg[red]%}[%{$fg[green]%}%~%{$fg[red]%}]%{$fg[magenta]%}${vcs_info_msg_0_}%{$reset_color%}$%b '
 
 # History in cache directory:
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.cache/zsh/history
 
+# Disable highlighting on paste
+zle_highlight=('paste:none')
+
 # Basic auto/tab complete:
 autoload -U compinit
 zstyle ':completion:*' menu select
+# Zsh to use the same colors as ls
+
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
 
 # Basic autocomplete contd.... The case insensitive completion
-# setopt NO_GLOBAL_RCS
-
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-# zstyle ':completion:*' cache-path /var/tmp/zcompcache
-# autoload -U compinit && compinit -d /var/tmp/zcompdump
-
 # case insensitive end
 
 # vi mode
@@ -88,6 +88,13 @@ bindkey '^e' edit-command-line
 [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
 [ -f "$HOME/.config/zsh/aliasrc" ] && source "$HOME/.config/zsh/aliasrc"
 
+# Fzf settings
+FZF_DEFAULT_OPTS="--preview 'batcat --color=always {}'"
+FZF_DEFAULT_COMMAND="fd --type f"
+source $HOME/.local/share/fzf/key-bindings.zsh
+
 # Load zsh-syntax-highlighting; should be last.
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+# Load zsh-autosuggestions; should be last.
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
 

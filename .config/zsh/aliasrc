@@ -1,12 +1,13 @@
 # some more ls aliases
-alias ll='ls -lAh'
+alias ls='exa --icons --color=always --group-directories-first'
+alias ll='exa -lha --icons --color=always --group-directories-first' 
 alias shut='/sbin/shutdown now'
 alias rbt='/sbin/reboot'
-alias v='vim'
+alias v='nvim'
 alias ce='cd ~/.config/suckless/dwm && v config.def.h'
 alias xmp='sudo /opt/lampp/xampp startmysql; sudo /opt/lampp/xampp startapache'
 alias stopserver='sudo /opt/lampp/xampp stop' 
 alias tlp='sudo tlp start' 
-alias lua='luajit' 
-
-
+alias lua='luajit'
+alias cat='batcat'
+alias bat='batcat'
