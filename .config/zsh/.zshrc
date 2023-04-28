@@ -91,10 +91,16 @@ bindkey '^e' edit-command-line
 # Fzf settings
 FZF_DEFAULT_OPTS="--preview 'batcat --color=always {}'"
 FZF_DEFAULT_COMMAND="fd --type f"
-source $HOME/.local/share/fzf/key-bindings.zsh
+#source $HOME/.local/share/fzf/key-bindings.zsh
 
+#for void linux
 # Load zsh-syntax-highlighting; should be last.
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 # Load zsh-autosuggestions; should be last.
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
+
+#for debian
+#source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+# Load zsh-autosuggestions; should be last.
+#source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
 

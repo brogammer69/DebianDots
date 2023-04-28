@@ -18,13 +18,17 @@ echo
 
 # conditional
 if [ "$answer" == "p" ]; then
-    systemctl poweroff
+    #systemctl poweroff
+    loginctl poweroff
 elif [ "$answer" == "r" ]; then
-	    systemctl reboot
+    #systemctl reboot
+    loginctl reboot
 elif [ "$answer" == "s" ]; then
-    systemctl suspend 
+    #systemctl suspend 
+    loginctl suspend 
 elif [ "$answer" == "h" ]; then
-    systemctl hibernate 
+    #systemctl hibernate 
+    loginctl hibernate 
 elif [ "$answer" == "l" ]; then
     slock
 else
