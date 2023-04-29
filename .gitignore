@@ -22,7 +22,7 @@ rtl*
 .viminfo
 .Xauthority
 .xsession-errors
-.local/share
+!.local/share/icons/dunst/
 .config/Mousepad
 .config/vlc/
 .config/Qt*
