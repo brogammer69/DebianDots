@@ -8,7 +8,7 @@
     # Follow monitor with mouse
     follow = mouse
 
-    width = 220
+    width = 300
     # height = 260
     origin = top-right
     offset = 5x20
@@ -17,7 +17,8 @@
     progress_bar_height = 14
     progress_bar_frame_width = 1
     progress_bar_min_width = 150
-    progress_bar_max_width = 220
+    progress_bar_max_width = 300
+    progress_bar_corner_radius = 7
 
     # Show how many messages are hidden
     indicate_hidden = yes
@@ -34,8 +35,8 @@
     separator_color = "#272f57"
 
     # Set notification padding
-    padding = 8
-    horizontal_padding = 8
+    padding = 10
+    horizontal_padding = 10
 
     # Disable frame (border)
     frame_width = 2
@@ -50,7 +51,8 @@
     # --- Text --- #
 
     # Set the font
-    font = "Fira Code Nerd Font 11"
+    # font = "Noto Sans 11"
+    font = "Hack Nerd Font 11"
 
     # Set line height to font height
     line_height = 0
