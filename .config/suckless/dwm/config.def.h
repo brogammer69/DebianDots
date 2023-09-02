@@ -8,7 +8,7 @@ static const unsigned int minwsz    = 20;       /* Minimal heigt of a client for
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "terminus:style=Regular:size=8:antialias=true:autohint=true", "FontAwesome:style=Regular:size=8:antialias=true:autohint=true", "FontAwesome 4 Free Solid:style=Regular:size=8:antialias=true:autohint=true" };
+static const char *fonts[]          = { "terminus:style=Regular:size=8:antialias=true:autohint=true", "FontAwesome:style=Regular:size=8:antialias=true:autohint=true", "FontAwesome 5 Free Solid:style=Regular:size=8:antialias=true:autohint=true" };
 static const char dmenufont[]       = "terminus:style=Regular:size=8:antialias=true:autohint=true";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -31,14 +31,16 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class                instance	title             tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "Gimp",               NULL,     NULL,             0,          1,          0,            0,        -1 },
-	{ "Brave-browser",      NULL,     NULL,             1 << 1,     0,          0,           -1,        -1 },
-	{ "Yad",                "yad",    "YAD",            0,          1,          0,            0,        -1 },
-	{ "float-term",         NULL,     NULL,             0,          1,          0,            0,        -1 },
-	{ "float-term-vlc",     NULL,     NULL,             1 << 8,     1,          0,            0,        -1 },
-	{ "st-256color",        NULL,     NULL,             0,          0,          1,            0,        -1 },
-	{ NULL,                 NULL,     "Event Tester",   0,          0,          0,            1,        -1 }, /* xev */
+	/* class                instance	     title                   tags mask  isfloating  isterminal  noswallow  monitor */
+	{ "Gimp",               NULL,            NULL,                   0,          1,          0,            0,        -1 },
+	{ "Firefox",            NULL,            NULL,                   1 << 1,     0,          0,           -1,        -1 },
+	{ "Yad",                "yad",           "YAD",                  0,          1,          0,            0,        -1 },
+	{ "float-term",         NULL,            NULL,                   0,          1,          0,            0,        -1 },
+	{ "float-term-vlc",     NULL,            NULL,                   1 << 8,     1,          0,            0,        -1 },
+	{ "st-256color",        NULL,            NULL,                   0,          0,          1,            0,        -1 },
+	{ "widget",             NULL,            "widget",               0,          1,          0,            0,        -1 },
+	{ "Firefox",            "Toolkit",       NULL,                   0,          1,          0,            0,        -1 },
+	{ NULL,                 NULL,            "Event Tester",         0,          0,          0,            1,        -1 }, /* xev */
 };
 
 /* layout(s) */
@@ -71,11 +73,11 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *htopcmd[]  = { "st", "-e", "htop", NULL };
-static const char *browsercmd[]  = { "brave-browser", "--incognito", NULL };
+static const char *browsercmd[]  = { "firefox", NULL };
 static const char *filemgrcmd[]  = { "thunar", NULL };
 static const char *guieditorcmd[]  = { "mousepad", NULL };
 static const char *clipmenucmd[]  = { "clipmenu", "-i", "-fn", dmenufont, NULL };
-static const char *slockcmd[]  = { "systemctl", "suspend", NULL };
+static const char *slockcmd[]  = { "loginctl", "suspend", NULL };
 static const char *fullscrncapture[]  = { "scrot", "/home/ghost/Media/screenshots/%Y-%m-%d-%T-capture.png", NULL }; //don't know why $HOME does not work
 static const char *focuscapture[]  = { "scrot", "-u", "/home/ghost/Media/screenshots/%Y-%m-%d-%T-capture.png", NULL };
 static const char *selectcapture[]  = { "scrot", "-s", "/home/ghost/Media/screenshots/%Y-%m-%d-%T-capture.png", NULL };
@@ -99,11 +101,11 @@ static Key keys[] = {
 	{ MODKEY,                         XK_grave,                     spawn,            SHCMD("st -c float-term -g 60x15+350+200 powermenu") }, //grave should be changed to XF86XK_AudioPrev
 	{ MODKEY|ShiftMask,               XK_e,                         spawn,            {.v = guieditorcmd } },
 	//Group VolumeAndBrightness
-	{ 0,                              XF86XK_AudioMute,             spawn,            SHCMD("amixer sset Master toggle; killsleep") },
-	{ 0,                              XF86XK_AudioLowerVolume,      spawn,            SHCMD("amixer -q sset Master 5-; killsleep") },
-	{ 0,                              XF86XK_AudioRaiseVolume,      spawn,            SHCMD("amixer -q sset Master 5+; killsleep") },
-	{ 0,                              XF86XK_MonBrightnessDown,     spawn,            SHCMD("xbacklight -dec 10; killsleep") },
-	{ 0,                              XF86XK_MonBrightnessUp,       spawn,            SHCMD("xbacklight -inc 10; killsleep") },
+	{ 0,                              XF86XK_AudioMute,             spawn,            SHCMD("changevolume mute; killsleep") },
+	{ 0,                              XF86XK_AudioLowerVolume,      spawn,            SHCMD("changevolume down; killsleep") },
+	{ 0,                              XF86XK_AudioRaiseVolume,      spawn,            SHCMD("changevolume up; killsleep") },
+	{ 0,                              XF86XK_MonBrightnessDown,     spawn,            SHCMD("changebrightness down; killsleep") },
+	{ 0,                              XF86XK_MonBrightnessUp,       spawn,            SHCMD("changebrightness up; killsleep") },
 	//Group ToggleBar
 	{ MODKEY,                         XK_b,                         togglebar,        {0} },
 	//Group StackRotationAndSizeManipulation
