@@ -1,8 +1,27 @@
 #!/bin/bash
 
+# In order to understand the different colors used and use of carets, take a look at status2d patch of dwm
+
 network_speed(){
-  speed="$(awk '{i++; recv[i]=$1; trans[i]=$2}; END{print (recv[2]-recv[1])/1000 "" (trans[2]-trans[1])/1000 ""}' <(cat /proc/net/dev | grep wlp0s20u2u3 | awk -F' ' '{print $2 " " $10}'; sleep 1; cat /proc/net/dev | grep wlp0s20u2u3 | awk -F' ' '{print $2 " " $10}'))"
+  speed="$(awk '{i++; recv[i]=$1; trans[i]=$2}; END{printf("%.0f %.0f", (recv[2]-recv[1])/1024 ,(trans[2]-trans[1])/1024)}' <(cat /proc/net/dev | grep wlp0s20u2u4 | awk -F' ' '{print $2 " " $10}'; sleep 1; cat /proc/net/dev | grep wlp0s20u2u4 | awk -F' ' '{print $2 " " $10}'))"
   echo -ne "$speed" 
+}
+
+network_speed_new() {
+  INTERFACE=wlp0s20u2u4 
+  while :
+  do
+    awk '{
+    if (rx) {
+      printf ("  %.0f    %.0f\n", ($2-rx)/1024, ($10-tx)/1024)
+    } else {
+      rx=$2; tx=$10;
+    }
+  }' \
+      <(grep $INTERFACE /proc/net/dev) \
+      <(sleep 1; grep $INTERFACE /proc/net/dev)
+    sleep 2;
+  done
 }
 
 print_power() {
@@ -10,8 +29,8 @@ print_power() {
   battery="$(cat /sys/class/power_supply/BAT0/capacity)"
   timer="$(acpi -b | grep "Battery" | awk '{print $5}' | cut -c 1-5)"
   if [ "${status}" == 1 ]; then
-    echo -ne "^d^ ^b#f4e6e2^^c#1d2021^ Batt: ^b#ffffff^ ${battery}% "
-    if [ "$battery" -eq 96 ]; then
+    echo -ne "^d^ ^b#f4e6e2^^c#1d2021^ Batt: ^b#ffffff^ ${battery}% ^c#fabd2f^ "
+    if [ "${battery}" == 96 ]; then
       cmd="notify-send 'Battery Almost Full' 'Battery is ${battery}%, You can unplug the charger'"
       eval $cmd
     fi
@@ -48,8 +67,8 @@ print_ram() {
 # }
 
 print_wifiqual() {
-    wifissid="$(iw dev wlp0s20u2u3 info | grep ssid | awk '{print $2}')"
-    echo -ne "^d^ ^b#d79921^^c#1d2021^  ^b#fabd2f^ ${wifissid}"
+    wifissid="$(iw dev wlp0s20u2u4 info | grep ssid | awk '{print $2}')"
+    echo -ne "^d^ ^b#d79921^^c#ffffff^  ^c#1d2021^^b#fabd2f^ ${wifissid}"
 }
 
 
@@ -66,7 +85,7 @@ print_hddfree() {
       echo -e "^d^ ^b#689d6a^^c#1d2021^  ^b#8ec07c^ "
     elif [[ $mix == *\[on\]* ]]; then
       #green 9
-      echo -e  "^d^ ^b#689d6a^^c#1d2021^  ^b#8ec07c^ ${vol}% "
+      echo -e  "^d^ ^b#689d6a^^c#1d2021^   ^b#8ec07c^ ${vol}% "
     else
       #yellow6
       echo -e "^d^ ^b#689d6a^^c#1d2021^  ^b#8ec07c^ "

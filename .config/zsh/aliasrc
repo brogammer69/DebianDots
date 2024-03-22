@@ -9,5 +9,13 @@ alias xmp='sudo /opt/lampp/xampp startmysql; sudo /opt/lampp/xampp startapache'
 alias stopserver='sudo /opt/lampp/xampp stop' 
 alias tlp='sudo tlp start' 
 alias lua='luajit'
-alias cat='batcat'
-alias bat='batcat'
+# for debian
+#alias cat='batcat'
+#alias bat='batcat'
+
+#for void linux
+alias cat='bat'
+alias bat='bat'
+
+#for quickly serving files using python
+alias serve='python3 -m http.server 8000'
