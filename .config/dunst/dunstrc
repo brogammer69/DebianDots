@@ -8,7 +8,8 @@
     # Follow monitor with mouse
     follow = mouse
 
-    width = 220
+    width = (0, 220)
+    height = (0, 220)
     # height = 260
     origin = top-right
     offset = 5x20
@@ -110,11 +111,14 @@
     min_icon_size = 50
 
     # Scale larger icons down to this size, set to 0 to disable
-    max_icon_size = 60
+    max_icon_size = 128
 
     # Paths to default icons.
     icon_path = /home/ghost/.local/share/icons/dunst/ 
 
+    # Icon cornet radius
+    icon_corner_radius = 5
+    
     # --- History --- #
 
     # Avoid timing out hidden notifications

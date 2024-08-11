@@ -8,7 +8,7 @@ static const unsigned int minwsz    = 20;       /* Minimal heigt of a client for
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "terminus:style=Regular:size=8:antialias=true:autohint=true", "FontAwesome:style=Regular:size=8:antialias=true:autohint=true", "FontAwesome 5 Free Solid:style=Regular:size=8:antialias=true:autohint=true" };
+static const char *fonts[]          = { "terminus:style=Regular:size=8:antialias=true:autohint=true" };
 static const char dmenufont[]       = "terminus:style=Regular:size=8:antialias=true:autohint=true";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -78,9 +78,6 @@ static const char *filemgrcmd[]  = { "thunar", NULL };
 static const char *guieditorcmd[]  = { "mousepad", NULL };
 static const char *clipmenucmd[]  = { "clipmenu", "-i", "-fn", dmenufont, NULL };
 static const char *slockcmd[]  = { "loginctl", "suspend", NULL };
-static const char *fullscrncapture[]  = { "scrot", "/home/ghost/Media/screenshots/%Y-%m-%d-%T-capture.png", NULL }; //don't know why $HOME does not work
-static const char *focuscapture[]  = { "scrot", "-u", "/home/ghost/Media/screenshots/%Y-%m-%d-%T-capture.png", NULL };
-static const char *selectcapture[]  = { "scrot", "-s", "/home/ghost/Media/screenshots/%Y-%m-%d-%T-capture.png", NULL };
 static const char *showkeybindings[]  = { "/home/ghost/.config/suckless/dwm/scripts/keybindings.sh", NULL };
 
 #include <X11/XF86keysym.h>
@@ -156,9 +153,9 @@ static Key keys[] = {
 	//Group Restart Dwm
 	{ MODKEY|ShiftMask,               XK_x,                         quit,             {0} },
 	//Group Screenshot
-	{ MODKEY,                         XK_Print,                     spawn,            {.v = fullscrncapture } },
-	{ MODKEY|ShiftMask,               XK_Print,                     spawn,            {.v = focuscapture } },
-	{ MODKEY|ControlMask  ,           XK_Print,                     spawn,            {.v = selectcapture } },
+	{ MODKEY,                         XK_Print,                     spawn,             SHCMD("screenshot full") },
+	{ MODKEY|ShiftMask,               XK_Print,                     spawn,             SHCMD("screenshot active") },
+	{ MODKEY|ControlMask  ,           XK_Print,                     spawn,             SHCMD("screenshot select") },
 };
 //EndBindings
 

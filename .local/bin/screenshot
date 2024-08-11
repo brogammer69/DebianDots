@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Define the directory to save screenshots
+SCREENSHOT_DIR="$HOME/Media/Screenshots"
+
+# Generate filenames with timestamps
+TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
+FILENAME="$SCREENSHOT_DIR/screenshot_$TIMESTAMP.png"
+
+# Function to take a screenshot and show a notification
+take_screenshot() {
+    local mode=$1
+
+    # Take the screenshot based on the mode
+    case $mode in
+        full)
+            scrot -f "$FILENAME"
+            ;;
+        active)
+            scrot -a "$FILENAME"
+            ;;
+        select)
+            scrot -s "$FILENAME"
+            ;;
+        *)
+            echo "Invalid mode selected."
+            exit 1
+            ;;
+    esac
+
+    # Show notification with preview
+    # dunstify -i "$FILENAME" -t 5000 "Screenshot taken" "Saved as $FILENAME"
+    dunstify -i "$FILENAME" -t 5000 "Screenshot taken"
+}
+
+take_screenshot $1
+
