@@ -50,11 +50,18 @@ static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
+/* add fibonacci layout */
+#include "fibonacci.c"
+
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "[F]",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+	{ "TTT",      bstack },
+	{ "===",      bstackhoriz },
+	{ "[@]",      spiral },
+ 	{ "[\\]",     dwindle },
 };
 
 /* key definitions */
@@ -119,13 +126,17 @@ static Key keys[] = {
 	//Group ZoomAndView
 	{ MODKEY|Mod1Mask,                XK_Return,                    zoom,             {0} },
 	{ MODKEY,                         XK_Tab,                       view,             {0} },
+	{ 0,                              XK_F9,                        spawn,            SHCMD("boomer") },
 	//Gropu KillWindow
 	{ MODKEY,                         XK_q,                         killclient,       {0} },
 	//Group ChangeLayout  
 	{ MODKEY,                         XK_t,                         setlayout,        {.v = &layouts[0]} },
 	{ MODKEY,                         XK_f,                         setlayout,        {.v = &layouts[1]} },
 	{ MODKEY,                         XK_m,                         setlayout,        {.v = &layouts[2]} },
-	{ MODKEY,                         XK_g,                         setlayout,        {.v = &layouts[3] } },
+	{ MODKEY,                         XK_u,                         setlayout,        {.v = &layouts[3]} },
+	{ MODKEY,                         XK_o,                         setlayout,        {.v = &layouts[4]} },
+	{ MODKEY,                         XK_r,                         setlayout,        {.v = &layouts[5]} },
+	{ MODKEY|ShiftMask,               XK_r,                         setlayout,        {.v = &layouts[6]} },
 	{ MODKEY,                         XK_space,                     setlayout,        {0} },
 	{ MODKEY|ShiftMask,               XK_space,                     togglefloating,   {0} },
 	//Group ViewWindowsOnTags
