@@ -30,23 +30,7 @@ dwm-statusbar &
 # locking using xidlehook. (compiled from source)
 # Run xidlehook
 export PRIMARY_DISPLAY="$(xrandr | awk '/ connected/{print $1}')"
-xidlehook \
-  # Don't lock when there's a fullscreen application` \
-  --not-when-fullscreen \
-  # Don't lock when there's audio playing` \
-  --not-when-audio \
-  # Dim the screen after 60 seconds, undim if user becomes active` \
-  --timer 60 \
-    'xrandr --output "$PRIMARY_DISPLAY" --brightness 0' \
-    'xrandr --output "$PRIMARY_DISPLAY" --brightness 1' \
-  # lock after 10 more seconds` \
-  --timer 10 \
-    'slock' \
-    '' \
-  # Finally, suspend 10 minutes after it locks` \
-  --timer 600 \
-    'loginctl suspend' \
-    '' &
+xidlehook --not-when-fullscreen --not-when-audio --timer 60 'xrandr --output "$PRIMARY_DISPLAY" --brightness 0' 'xrandr --output "$PRIMARY_DISPLAY" --brightness 1' --timer 20 'slock' 'xrandr --output "$PRIMARY_DISPLAY" --brightness 1' --timer 600 'loginctl suspend' '' &
 
 # locking using xss-lock
 xss-lock slock &
