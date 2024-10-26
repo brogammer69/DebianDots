@@ -25,10 +25,28 @@ picom -f &
 dwm-statusbar &
 
 #for not automatically locking screen while playing videos
-xautolock -time 8 -locker 'loginctl suspend' -detectsleep -corners 0+0- -cornerdelay 1 -cornerredelay 5 -cornersize 10 -secure -notify 5 -notifier /home/ghost/.local/bin/notifysleep &
+# xautolock -time 12 -detectsleep -corners 0+0- -cornerdelay 1 -cornerredelay 5 -cornersize 10 -secure -notify 15 -notifier /home/ghost/.local/bin/notifysleep -locker 'loginctl suspend' &
 
 # locking using xidlehook. (compiled from source)
-#xidlehook --not-when-fullscreen --not-when-audio --timer 6 'systemctl suspend' ''
+# Run xidlehook
+export PRIMARY_DISPLAY="$(xrandr | awk '/ connected/{print $1}')"
+xidlehook \
+  # Don't lock when there's a fullscreen application` \
+  --not-when-fullscreen \
+  # Don't lock when there's audio playing` \
+  --not-when-audio \
+  # Dim the screen after 60 seconds, undim if user becomes active` \
+  --timer 60 \
+    'xrandr --output "$PRIMARY_DISPLAY" --brightness 0' \
+    'xrandr --output "$PRIMARY_DISPLAY" --brightness 1' \
+  # lock after 10 more seconds` \
+  --timer 10 \
+    'slock' \
+    '' \
+  # Finally, suspend 10 minutes after it locks` \
+  --timer 600 \
+    'loginctl suspend' \
+    '' &
 
 # locking using xss-lock
 xss-lock slock &
