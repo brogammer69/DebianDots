@@ -26,6 +26,9 @@ static const char* background_image = "images/background.jpg";
 /* default message */
 static const char * message = "Hello, Again\nEnter your password";
 
+/* Incorrect password message */
+static const char * error_message = "Incorrect Password\nTry again";
+
 /* text color */
 static const char * text_color = "#ffffff";
 

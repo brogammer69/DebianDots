@@ -91,7 +91,7 @@ dontkillme(void)
 #endif
 
 static void
-writemessage(Display *dpy, Window win, int screen)
+writemessage(Display *dpy, Window win, int screen, const char *error_msg)
 {
 	int len, line_len, width, height, s_width, s_height, i, j, k, tab_replace, tab_size;
 	XGCValues gr_values;
@@ -125,6 +125,8 @@ writemessage(Display *dpy, Window win, int screen)
 	/*
 	 * Start formatting and drawing text
 	 */
+	if(error_msg != NULL) 
+		message = error_msg;
 
 	len = strlen(message);
 
@@ -229,7 +231,7 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 {
 	XRRScreenChangeNotifyEvent *rre;
 	char buf[32], passwd[256], *inputhash;
-	int num, screen, running, failure, oldc;
+	int num, screen, running, failure, oldc, typing;
 	unsigned int len, color;
 	KeySym ksym;
 	XEvent ev;
@@ -238,6 +240,7 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 	running = 1;
 	failure = 0;
 	oldc = INIT;
+	typing = 0;
 
 	while (running && !XNextEvent(dpy, &ev)) {
 		if (ev.type == KeyPress) {
@@ -269,6 +272,7 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 				}
 				explicit_bzero(&passwd, sizeof(passwd));
 				len = 0;
+				typing = 0;
 				break;
 			case XK_Escape:
 				explicit_bzero(&passwd, sizeof(passwd));
@@ -279,6 +283,7 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 					passwd[--len] = '\0';
 				break;
 			default:
+				typing = 1;
 				if (num && !iscntrl((int)buf[0]) &&
 				    (len + num < sizeof(passwd))) {
 					memcpy(passwd + len, buf, num);
@@ -287,14 +292,14 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 				break;
 			}
 			color = len ? INPUT : ((failure || failonclear) ? FAILED : INIT);
-			if (running && oldc != color) {
+			if (running && oldc != color && !typing) {
 				for (screen = 0; screen < nscreens; screen++) {
 					if (locks[screen]->bgmap)
         		XSetWindowBackgroundPixmap(dpy, locks[screen]->win, locks[screen]->bgmap);
 					else
         		XSetWindowBackground(dpy, locks[screen]->win, locks[screen]->colors[0]);
  				  XClearWindow(dpy, locks[screen]->win);
-					writemessage(dpy, locks[screen]->win, screen);
+					writemessage(dpy, locks[screen]->win, screen, error_message);
 				}
 				oldc = color;
 			}
@@ -575,7 +580,7 @@ main(int argc, char **argv) {
 		die("slock: out of memory\n");
 	for (nlocks = 0, s = 0; s < nscreens; s++) {
 		if ((locks[s] = lockscreen(dpy, &rr, s)) != NULL) {
-			writemessage(dpy, locks[s]->win, s);
+			writemessage(dpy, locks[s]->win, s, NULL);
 			nlocks++;
 		} else {
 			break;
