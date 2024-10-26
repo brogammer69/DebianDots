@@ -11,6 +11,18 @@ static const char *colorname[NUMCOLS] = {
 /* treat a cleared input like a wrong password (color) */
 static const int failonclear = 1;
 
+/*Enable blur*/
+#define BLUR
+/*Set blur radius*/
+static const int blurRadius=5;
+/*Enable Pixelation*/
+//#define PIXELATION
+/*Set pixelation radius*/
+static const int pixelSize=0;
+
+/* Background image path, should be available to the user above */
+static const char* background_image = "images/background.jpg";
+
 /* default message */
 static const char * message = "Hello, Again\nEnter your password";
 
