@@ -31,6 +31,11 @@ clipmenu - clipboard history manager paired with dmenu
 dunst and notify-send - for notifications
 feh - for setting wallpapers
 xdotool - for moving mouse curosr to primary monitor in dual monitor setup
+xidlehook - for replacement of xautolock
+xclip - for clipboard
+miam - for screenshot
+pulseaudio - for xidlehook
+pamixer and pavucontrol - for pulseaudio configuration
 
 ## Steps for setup
 1. First install minimal iso (or any other)
