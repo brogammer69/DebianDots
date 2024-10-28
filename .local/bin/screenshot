@@ -7,35 +7,31 @@ SCREENSHOT_DIR="$HOME/Media/Screenshots"
 TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
 FILENAME="$SCREENSHOT_DIR/screenshot_$TIMESTAMP.png"
 
-# Function to take a screenshot and show a notification
-take_screenshot() {
-    local mode=$1
+echo "$TIMESTAMP"
+echo "$FILENAME"
 
-    # Take the screenshot based on the mode and copy it to clipboard. 
-    # Remember to install xclip
-    case $mode in
-        full)
-            scrot -f "$FILENAME" 
-            ;;
-        active)
-            scrot -u "$FILENAME"
-            ;;
-        select)
-            scrot -s "$FILENAME"
-            ;;
-        *)
-            echo "Invalid mode selected."
-            exit 1
-            ;;
-    esac
+# Take the screenshot based on the mode and copy it to clipboard. 
+# Remember to install xclip and xdotool
+case $1 in
+    full)
+        maim --hidecursor "$FILENAME" # -u flag is for hide cursor ( --hidecursor )
+        ;;
+    active)
+        maim --hidecursor -i $(xdotool getactivewindow) "$FILENAME"
+        ;;
+    select)
+        maim -s "$FILENAME"
+        ;;
+    *)
+        echo "Invalid mode selected."
+        exit 1
+        ;;
+esac
 
-    # Copy to clipboard
-    xclip -selection clipboard -t image/png -i "$FILENAME"
+# Copy to clipboard
+xclip -selection clipboard -t image/png -i "$FILENAME"
 
-    # Show notification with preview
-    # dunstify -i "$FILENAME" -t 5000 "Screenshot taken" "Saved as $FILENAME"
-    dunstify -i "$FILENAME" -t 5000 "Screenshot taken and copied to clipboard"
-}
-
-take_screenshot $1
+# Show notification with preview
+# dunstify -i "$FILENAME" -t 5000 "Screenshot taken" "Saved as $FILENAME"
+dunstify -i "$FILENAME" -t 5000 "Screenshot taken and copied to clipboard"
 
