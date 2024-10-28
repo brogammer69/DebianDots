@@ -11,10 +11,11 @@ FILENAME="$SCREENSHOT_DIR/screenshot_$TIMESTAMP.png"
 take_screenshot() {
     local mode=$1
 
-    # Take the screenshot based on the mode
+    # Take the screenshot based on the mode and copy it to clipboard. 
+    # Remember to install xclip
     case $mode in
         full)
-            scrot -f "$FILENAME"
+            scrot -f "$FILENAME" 
             ;;
         active)
             scrot -u "$FILENAME"
@@ -28,9 +29,12 @@ take_screenshot() {
             ;;
     esac
 
+    # Copy to clipboard
+    xclip -selection clipboard -t image/png -i "$FILENAME"
+
     # Show notification with preview
     # dunstify -i "$FILENAME" -t 5000 "Screenshot taken" "Saved as $FILENAME"
-    dunstify -i "$FILENAME" -t 5000 "Screenshot taken"
+    dunstify -i "$FILENAME" -t 5000 "Screenshot taken and copied to clipboard"
 }
 
 take_screenshot $1
