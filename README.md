@@ -36,6 +36,7 @@ xclip - for clipboard
 miam - for screenshot
 pulseaudio - for xidlehook
 pamixer and pavucontrol - for pulseaudio configuration
+picom - the fork https://github.com/fdev31/picom (compile it yourself)
 
 ## Steps for setup
 1. First install minimal iso (or any other)
