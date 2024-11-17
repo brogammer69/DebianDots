@@ -37,6 +37,7 @@ static const Rule rules[] = {
 	{ "Yad",                "yad",           "YAD",                  0,          1,          0,            0,        -1 },
 	{ "float-term",         NULL,            NULL,                   0,          1,          0,            0,        -1 },
 	{ "float-term-vlc",     NULL,            NULL,                   1 << 8,     1,          0,            0,        -1 },
+	{ "ControlNix",         NULL,            NULL,                   0,          1,          0,            0,        -1 },
 	{ "st-256color",        NULL,            NULL,                   0,          0,          1,            0,        -1 },
 	{ "widget",             NULL,            "widget",               0,          1,          0,            0,        -1 },
 	{ "Firefox",            "Toolkit",       NULL,                   0,          1,          0,            0,        -1 },
@@ -58,10 +59,10 @@ static const Layout layouts[] = {
 	{ "[]=",      tile },    /* first entry is default */
 	{ "[F]",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
-	{ "TTT",      bstack },
-	{ "===",      bstackhoriz },
-	{ "[@]",      spiral },
- 	{ "[\\]",     dwindle },
+	{ "[BS]",      bstack },
+	{ "[BSH]",      bstackhoriz },
+	{ "[S]",      spiral },
+ 	{ "[D]",     dwindle },
 };
 
 /* key definitions */
@@ -90,7 +91,7 @@ static const char *showkeybindings[]  = { "/home/ghost/.config/suckless/dwm/scri
 #include <X11/XF86keysym.h>
 
 static Key keys[] = {
-//EMyKeyBindings
+//MyKeyBindings
 	/* modifier                     key                           function            argument */
 	//Group SpawnPrograms
 	{ MODKEY,                         XK_Return,                    spawn,            {.v = termcmd } },
@@ -126,7 +127,7 @@ static Key keys[] = {
 	//Group ZoomAndView
 	{ MODKEY|Mod1Mask,                XK_Return,                    zoom,             {0} },
 	{ MODKEY,                         XK_Tab,                       view,             {0} },
-	{ 0,                              XK_F9,                        spawn,            SHCMD("boomer") },
+	{ MODKEY,                         XK_F9,                        spawn,            SHCMD("boomer") },
 	//Gropu KillWindow
 	{ MODKEY,                         XK_q,                         killclient,       {0} },
 	//Group ChangeLayout  
@@ -177,7 +178,7 @@ static Button buttons[  ] = {
 	{ ClkLtSymbol,            0,              Button1,        setlayout,      {0} }  ,
 	{ ClkLtSymbol,            0,              Button3,        setlayout,      {.v =   &layouts[2]} },
 	{ ClkWinTitle,            0,              Button2,        zoom,           {0} }  ,
-	{ ClkStatusText,          0,              Button2,        spawn,          {.v =   htopcmd } },
+	{ ClkStatusText,          0,              Button2,        spawn,          SHCMD("ControlNix") },
 	{ ClkClientWin,           MODKEY,         Button1,        movemouse,      {0} }  ,
 	{ ClkClientWin,           MODKEY,         Button2,        togglefloating, {0} }  ,
 	{ ClkClientWin,           MODKEY,         Button3,        resizemouse,    {0} }  ,
