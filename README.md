@@ -73,20 +73,20 @@ A lightweight Debian setup featuring **dwm**, **st**, **dmenu**, and **slock** f
 
 5. **Clone this Repository**  
    ```bash
-     git clone <repo-url> ~/dotfiles
+   git clone <repo-url> ~/dotfiles
    ```
 6. **Copy the contents of this repo to respective locations**
 
 7. **Install Utilities**
     ```bash
-      sudo apt install ly xautolock clipmenu dunst feh xdotool xidlehook xclip miam pulseaudio pamixer pavucontrol
+    sudo apt install ly xautolock clipmenu dunst feh xdotool xidlehook xclip miam pulseaudio pamixer pavucontrol
     ```
 
 8. **Build and Install dwm, st, dmenu, slock**
    - Navigate to respective directories inside ~/.config/suckless and run
    ```bash
-     rm -f config.h
-     sudo make clean install
+   rm -f config.h
+   sudo make clean install
    ```
 
 9. **Configure Autostart**
@@ -94,5 +94,5 @@ A lightweight Debian setup featuring **dwm**, **st**, **dmenu**, and **slock** f
 
 10. **Reboot**
 
-Enjoy your minimalist dwm setup
+Enjoy your minimalist dwm setup.
 Happy hacking.
