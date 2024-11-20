@@ -1,52 +1,98 @@
-# My dotfiles for Debian setup
-The setup is a minimal install of debian with dwm, st, dmenu, slock.
+
+# 🌿 My Dotfiles for Minimal Debian Setup  
+A lightweight Debian setup featuring **dwm**, **st**, **dmenu**, and **slock** for a minimalist and efficient workflow.
 
 ---
-## Patches used in dwm
-fullgaps
-pertag
-swallow
-rotatestack
-statusallmons
-attachasideandbelow
-preservetag
-status2d
 
-## Required packages to build my build of dwm
-libx11-dev
-libxft-dev
-libxinerama-dev
-libxcb-res0-dev
-libx11-xcb-dev
+## ✨ Features  
+- **Window Manager**: [dwm](https://dwm.suckless.org/) (custom-patched)  
+- **Terminal Emulator**: [st](https://st.suckless.org/)  
+- **Application Launcher**: [dmenu](https://tools.suckless.org/dmenu/)  
+- **Screen Locker**: [slock](https://tools.suckless.org/slock/)  
 
 ---
-## Required package to build slock
-libxrandr-dev
+
+## 🧩 Patches Applied in dwm  
+- **Full Gaps**: Add gaps between windows.  
+- **Per Tag**: Maintain independent layouts for each tag.  
+- **Swallow**: Enable terminal swallowing for better focus.  
+- **Rotate Stack**: Easily rotate window order.  
+- **Status All Monitors**: Show the status bar on all monitors.  
+- **Attach Aside and Below**: Customize new window attachment.  
+- **Preserve Tag**: Retain current tag after restarting dwm.  
+- **Status2D**: Enable colored and formatted status bars.  
+- **Autostart**: Launch scripts or programs automatically.
 
 ---
-## Some installed utility packages
-ly - the minimal display manager
-xautolock - tool to lock the display if idle
-clipmenu - clipboard history manager paired with dmenu
-dunst and notify-send - for notifications
-feh - for setting wallpapers
-xdotool - for moving mouse curosr to primary monitor in dual monitor setup
-xidlehook - for replacement of xautolock
-xclip - for clipboard
-miam - for screenshot
-pulseaudio - for xidlehook
-pamixer and pavucontrol - for pulseaudio configuration
-picom - the fork https://github.com/fdev31/picom (compile it yourself)
 
-## Steps for setup
-1. First install minimal iso (or any other)
-2. Make sure you are connected to internet. If not use usb tathering.
-3. Install sudo and uncomment appropriate line to give yourself appropriate privilege. Reboot
-4. Install git, neovim, picom (or compton), linux-headers, build-essentials.
-5. Install xorg.
-6. Clone this repo into home directory of your user(or wherever you prefer)
-7. Copy the contents of this repo to similar places within your home directory.
-8. Install above utility packages. 
-9. Install dwm, st, dmenu, slock from the repo
-10. Copy .xinitrc from the repo to your home directory
-11. Reboot
+## 🛠️ Build Requirements  
+### For dwm  
+- `libx11-dev`  
+- `libxft-dev`  
+- `libxinerama-dev`  
+- `libxcb-res0-dev`  
+- `libx11-xcb-dev`  
+
+### For slock  
+- `libxrandr-dev`  
+
+---
+
+## 📦 Utility Packages  
+- **[ly](https://github.com/fairyglade/ly)**: Minimal display manager.  
+- **xautolock**: Automatically lock the screen when idle.  
+- **clipmenu**: Clipboard history manager integrated with dmenu.  
+- **dunst** and **notify-send**: For notifications.  
+- **feh**: Set and manage wallpapers.  
+- **xdotool**: Control the mouse cursor (useful for dual monitors).  
+- **xidlehook**: Modern alternative to xautolock.  
+- **xclip**: Command-line clipboard utility.  
+- **miam**: Lightweight screenshot tool.  
+- **pulseaudio**, **pamixer**, **pavucontrol**: For audio management.  
+- **[picom](https://github.com/fdev31/picom)**: Compositor for window transparency and shadows (build manually).  
+
+---
+
+## 🚀 Setup Instructions  
+
+1. **Install Debian**  
+   Start with a minimal ISO (or any other flavor of Debian).  
+
+2. **Connect to the Internet**  
+   Use USB tethering if required.  
+
+3. **Setup `sudo`**  
+   - Install `sudo`.  
+   - Uncomment the appropriate line in `/etc/sudoers` to grant privileges.  
+   - Reboot.  
+
+4. **Install Essential Packages**  
+   ```bash
+     sudo apt install git neovim linux-headers build-essential xorg NetworkManager mason ninja
+   ```
+
+5. **Clone this Repository**  
+   ```bash
+     git clone <repo-url> ~/dotfiles
+   ```
+6. **Copy the contents of this repo to respective locations**
+
+7. **Install Utilities**
+    ```bash
+      sudo apt install ly xautolock clipmenu dunst feh xdotool xidlehook xclip miam pulseaudio pamixer pavucontrol
+    ```
+
+8. **Build and Install dwm, st, dmenu, slock**
+   - Navigate to respective directories inside ~/.config/suckless and run
+   ```bash
+     rm -f config.h
+     sudo make clean install
+   ```
+
+9. **Configure Autostart**
+  - Add/remove programs that you want to start before starting dwm in ~/.local/share/dwm/autostart.sh file
+
+10. **Reboot**
+
+Enjoy your minimalist dwm setup
+Happy hacking.

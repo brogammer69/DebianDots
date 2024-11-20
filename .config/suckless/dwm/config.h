@@ -142,7 +142,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,               XK_space,                     togglefloating,   {0} },
 	//Group ViewWindowsOnTags
 	{ MODKEY,                         XK_0,                         view,             {.ui = ~0 } },
-	{ MODKEY|ShiftMask,               XK_0,tag,                     {.ui = ~0 } },
+	{ MODKEY|ShiftMask,               XK_0,                         tag,              {.ui = ~0 } },
 	//Group MonitorAndTags
 	{ MODKEY,                         XK_comma,                     focusmon,         {.i = -1 } },
 	{ MODKEY,                         XK_period,                    focusmon,         {.i = +1 } },
@@ -179,12 +179,13 @@ static Button buttons[  ] = {
 	{ ClkLtSymbol,            0,              Button3,        setlayout,      {.v =   &layouts[2]} },
 	{ ClkWinTitle,            0,              Button2,        zoom,           {0} }  ,
 	{ ClkStatusText,          0,              Button2,        spawn,          SHCMD("ControlNix") },
+	{ ClkStatusText,          0,              Button3,        spawn,          {.v = htopcmd } },
 	{ ClkClientWin,           MODKEY,         Button1,        movemouse,      {0} }  ,
 	{ ClkClientWin,           MODKEY,         Button2,        togglefloating, {0} }  ,
 	{ ClkClientWin,           MODKEY,         Button3,        resizemouse,    {0} }  ,
 	{ ClkTagBar,              0,              Button1,        view,           {0} }  ,
 	{ ClkTagBar,              0,              Button3,        toggleview,     {0} }  ,
 	{ ClkTagBar,              MODKEY,         Button1,        tag,            {0} }  ,
-	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} }  ,
+	{ ClkTagBar,              MODKEY,         Button3,        toggletag,      {0} }  ,
 };
 
