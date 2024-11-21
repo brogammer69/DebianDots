@@ -45,7 +45,7 @@ A lightweight Debian setup featuring **dwm**, **st**, **dmenu**, and **slock** f
 - **dunst** and **notify-send**: For notifications.  
 - **feh**: Set and manage wallpapers.  
 - **xdotool**: Control the mouse cursor (useful for dual monitors).  
-- **xidlehook**: Modern alternative to xautolock.  
+- **xidlehook**: Modern alternative to xautolock. (cargo install xidlehook)  
 - **xclip**: Command-line clipboard utility.  
 - **miam**: Lightweight screenshot tool.  
 - **pulseaudio**, **pamixer**, **pavucontrol**: For audio management.  
@@ -68,7 +68,7 @@ A lightweight Debian setup featuring **dwm**, **st**, **dmenu**, and **slock** f
 
 4. **Install Essential Packages**  
    ```bash
-     sudo apt install git neovim linux-headers build-essential xorg NetworkManager mason ninja
+   sudo apt install git neovim linux-headers build-essential xorg NetworkManager mason ninja
    ```
 
 5. **Clone this Repository**  

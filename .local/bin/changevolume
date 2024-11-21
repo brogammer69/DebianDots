@@ -13,13 +13,11 @@ up)
 	# Set the volume on (if it was muted)
   pamixer -u
   pamixer -i 5
-  . $HOME/.local/bin/killsleep
 	send_notification "$1"
 	;;
 down)
   pamixer -u
   pamixer -d 5
-  . $HOME/.local/bin/killsleep
 	send_notification "$1"
 	;;
 mute)
@@ -27,7 +25,7 @@ mute)
 	if $(pamixer --get-mute); then
 		dunstify -a "Volume" -t 2000 -r 9993 -h string:x-dunst-stack-tag:volume -i "volume-off" -u low "Muted"
 	else
-		send_notification up
+		send_notification up 
 	fi
 	;;
 esac

@@ -3,12 +3,12 @@
 # In order to understand the different colors used and use of carets, take a look at status2d patch of dwm
 
 network_speed(){
-  speed="$(awk '{i++; recv[i]=$1; trans[i]=$2}; END{printf("%.0f %.0f", (recv[2]-recv[1])/1024 ,(trans[2]-trans[1])/1024)}' <(cat /proc/net/dev | grep wlp0s20u2u4 | awk -F' ' '{print $2 " " $10}'; sleep 1; cat /proc/net/dev | grep wlp0s20u2u4 | awk -F' ' '{print $2 " " $10}'))"
+  speed="$(awk '{i++; recv[i]=$1; trans[i]=$2}; END{printf("%.0f %.0f ", (recv[2]-recv[1])/1024 ,(trans[2]-trans[1])/1024)}' <(cat /proc/net/dev | grep wlp0s20u2u3 | awk -F' ' '{print $2 " " $10}'; sleep 1; cat /proc/net/dev | grep wlp0s20u2u3 | awk -F' ' '{print $2 " " $10}'))"
   echo -ne "$speed" 
 }
 
 network_speed_new() {
-  INTERFACE=wlp0s20u2u4 
+  INTERFACE=wlp0s20u2u3 
   while :
   do
     awk '{
@@ -36,17 +36,17 @@ print_power() {
     fi
   else
     echo -ne "^d^ ^b#cc241d^^c#1d2021^ Batt:^b#fb4934^ ${battery}% "
-    if [ "$battery" -eq 25 ]; then
-      cmd="notify-send -u low 'Battery Low' 'Battery remain ${battery}%, Please recharge'"
+    if [ "$battery" -eq 5 ]; then
+      cmd="notify-send -u critical 'Battery Critically Low' 'Suspending the machine in 5 seconds'"
+      eval $cmd
+      sleep 5
+      cmd="loginctl suspend"
       eval $cmd
     elif [ "$battery" -eq 15 ]; then
       cmd="notify-send -u critical 'Battery Low' 'Battery remain ${battery}%, Please recharge'"
       eval $cmd
-    elif [ "$battery" -eq 5 ]; then
-      cmd="notify-send -u critical 'Battery Critically Low' 'Suspending the machine in 5 seconds'"
-      eval $cmd
-      sleep 5
-      cmd="systemctl suspend"
+    elif [ "$battery" -eq 25 ]; then
+      cmd="notify-send -u low 'Battery Low' 'Battery remain ${battery}%, Please recharge'"
       eval $cmd
     fi
   fi
@@ -55,7 +55,7 @@ print_power() {
 print_ram() {
 	mem_used=$(free -h | awk '/Mem:/ { print $3 }' | cut -f1 -d 'i')
 	mem_free=$(free -h | awk '/Mem:/ { print $2 }' | cut -f1 -d 'i')
-	echo  -ne "^d^ ^b#689d6a^^c#1d2021^  ^b#8ec07c^ ${mem_used}/${mem_free} "
+	echo  -ne "^d^ ^b#689d6a^^c#1d2021^   ^b#8ec07c^ ${mem_used}/${mem_free} "
 }
 
 
@@ -67,17 +67,17 @@ print_ram() {
 # }
 
 print_wifiqual() {
-    wifissid="$(iw dev wlp0s20u2u4 info | grep ssid | awk '{print $2}')"
-    echo -ne "^d^ ^b#d79921^^c#ffffff^  ^c#1d2021^^b#fabd2f^ ${wifissid}"
+    wifissid="$(iw dev wlp0s20u2u3 link | grep -i ssid | awk '{print $2}')"
+    echo -ne "^d^ ^b#d79921^^c#ffffff^   ^c#1d2021^^b#fabd2f^ ${wifissid}"
 }
 
 
 print_hddfree() {
   hddfree="$(df -Ph /dev/disk/by-uuid/8303ddb4-73cf-4c08-8709-3eaa0c9843b6 | awk '$3 ~ /[0-9]+/ {print $4}')"
-  echo -ne "^d^ ^b#458588^^c#1d2021^  / ^b#83a598^ ${hddfree} "
+  echo -ne "^d^ ^b#458588^^c#1d2021^   / ^b#83a598^ ${hddfree} "
 }
 
- print_volume(){
+print_volume(){
     mix=`amixer get Master | tail -1`
     vol="$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')"
     if [[ $mix == *\[off\]* ]]; then
@@ -90,17 +90,27 @@ print_hddfree() {
       #yellow6
       echo -e "^d^ ^b#689d6a^^c#1d2021^  ^b#8ec07c^ "
     fi
- }
+}
+
+print_volume_pulseaudio() { 
+  is_mute="$(pamixer --get-mute)"
+	volume="$(pamixer --get-volume)"
+  if [ "$is_mute" = "true" ]; then
+    echo -e "^d^ ^b#689d6a^^c#1d2021^  ^b#8ec07c^ "
+  else
+    echo -e  "^d^ ^b#689d6a^^c#1d2021^   ^b#8ec07c^ ${volume}% "
+  fi
+}
 
 print_brightness() {
   brightness="$(xbacklight -get | sed 's/\.[0-9]*$//')"
-	echo -ne  "^d^ ^b#ffffff^^c#1d2021^  ^b#f4e6e2^ ${brightness} "
+	echo -ne  "^d^ ^b#ffffff^^c#1d2021^   ^b#f4e6e2^ ${brightness} "
 }
 
 print_datetime() {
   dateonly="$(date "+%a, %d %b")"
   timeonly="$(date "+%I:%M%p")"
-  echo -ne "^d^ ^b#458588^^c#1d2021^  ^b#83a598^ ${dateonly} ^d^ ^b#689d6a^^c#1d2021^  ^b#8ec07c^ ${timeonly} "
+  echo -ne "^d^ ^b#458588^^c#1d2021^   ^b#83a598^ ${dateonly} ^d^ ^b#689d6a^^c#1d2021^   ^b#8ec07c^ ${timeonly} "
 }
 
 print_cputemp() {
@@ -120,12 +130,12 @@ while true; do
 
   # output vars
   print_cpu_used() {
-    printf "%-1b" "^d^ ^b#98971a^^c#1d2021^  ^b#b8bb26^ ${cpu_used}% "
+    printf "%-1b" "^d^ ^b#98971a^^c#1d2021^   ^b#b8bb26^ ${cpu_used}% "
     #"%-10b" "${color7}CPU:${cpu_used}%"
   }
  
   # Pipe to status bar, not indented due to printing extra spaces/tabs
-  xsetroot -name "$(print_cpu_used)$(print_cputemp)$(print_ram)$(print_brightness)$(print_wifiqual) $(network_speed)$(print_hddfree)$(print_volume)$(print_power)$(print_datetime)"
+  xsetroot -name "$(print_cpu_used)$(print_cputemp)$(print_ram)$(print_brightness)$(print_wifiqual) $(network_speed)$(print_hddfree)$(print_volume_pulseaudio)$(print_power)$(print_datetime)"
 
   # reset old rates
   cpu_idle_old=$cpu_idle_now
