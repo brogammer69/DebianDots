@@ -6,8 +6,8 @@ set smtp_url = "smtps://himalpou101@gmail.com@smtp.gmail.com:465"
 #personal configs
 set from = "himalpou101@gmail.com"
 set realname = "Himal Poudel"
-set smtp_pass = "yourpasswordhere"
-set imap_pass = "yourpasswordhere"
+set smtp_pass = "kqcsioietbzvxvqj"
+set imap_pass = "kqcsioietbzvxvqj"
 
 #sort mail in descending order
 set sort=threads

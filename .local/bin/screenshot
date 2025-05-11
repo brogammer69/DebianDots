@@ -14,13 +14,13 @@ echo "$FILENAME"
 # Remember to install xclip and xdotool
 case $1 in
     full)
-        maim --hidecursor "$FILENAME" # -u flag is for hide cursor ( --hidecursor )
+        maim --quality 8 --hidecursor "$FILENAME" # -u flag is for hide cursor ( --hidecursor )
         ;;
     active)
-        maim --hidecursor -i $(xdotool getactivewindow) "$FILENAME"
+        maim --quality 8 --hidecursor -i $(xdotool getactivewindow) "$FILENAME"
         ;;
     select)
-        maim -s "$FILENAME"
+        maim --quality 8 -s "$FILENAME"
         ;;
     *)
         echo "Invalid mode selected."

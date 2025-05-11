@@ -11,12 +11,13 @@ fi
 cachedir="$HOME/.cache/torrdown"
 query="$(sed 's/ /+/g' <<<$query)"
 
-curl -s https://1337x.wtf/search/$query/1/ > $cachedir/tmp.html 
+curl -s https://1337x.to/search/$query/1/ > $cachedir/tmp.html 
 movie=$(grep -Eo "torrent\/[0-9]{7}\/[a-zA-Z0-9?%-]*/"  $cachedir/tmp.html | head -n 1) 
-curl -s https://1337x.wtf/$movie > $cachedir/tmp.html
+curl -s https://1337x.to/$movie > $cachedir/tmp.html
 magnet=$(grep -Po "magnet:\?xt=urn:btih:[a-zA-Z0-9]*" $cachedir/tmp.html | head -n 1)
 
 echo $magnet >> $HOME/Media/Movies/Torrents/tmp.txt
 
-peerflix -v $magnet #if you want to play in mpv use -m instead of -v switch 
+dunstify "⬇️  Playing in vlc 📁"
 
+peerflix -v $magnet #if you want to play in mpv use -m instead of -v switch 

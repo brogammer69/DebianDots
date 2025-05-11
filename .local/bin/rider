@@ -1,0 +1,4 @@
+#!/bin/sh
+
+#start rider
+/home/ghost/.local/share/JetBrains/Toolbox/apps/Rider/ch-0/231.9011.39/bin/rider.sh

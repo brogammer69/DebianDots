@@ -36,6 +36,9 @@ _comp_options+=(globdots)		# Include hidden files.
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 # case insensitive end
 
+# For rustup completions. Might delete on future
+fpath+=~/.zfunc
+
 # vi mode
 bindkey -v
 export KEYTIMEOUT=1
@@ -104,3 +107,9 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev
 # Load zsh-autosuggestions; should be last.
 #source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
 
+. "/home/ghost/.deno/env"
+. "/home/ghost/.bun/env"
+# bun completions
+[ -s "/home/ghost/.bun/_bun" ] && source "/home/ghost/.bun/_bun"
+
+. "/opt/rust/cargo/env"

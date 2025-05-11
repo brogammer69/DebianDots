@@ -1,0 +1,4 @@
+
+#!/bin/sh
+
+/opt/RustRover/bin/rustrover.sh

@@ -1,3 +1,3 @@
 #!/bin/sh
 
-dunstify -u low "About to suspend in 4 seconds" -i "bell"
+dunstify -u low "About to suspend in 10 seconds" -i "bell"

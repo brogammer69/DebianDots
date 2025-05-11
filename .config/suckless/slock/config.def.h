@@ -21,7 +21,7 @@ static const int blurRadius=5;
 static const int pixelSize=0;
 
 /* Background image path, should be available to the user above */
-static const char* background_image = "images/background.jpg";
+static const char* background_image = "/usr/local/bin/background.jpg";
 
 /* default message */
 static const char * message = "Hello, Again\nEnter your password";

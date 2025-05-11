@@ -19,3 +19,15 @@ alias bat='bat'
 
 #for quickly serving files using python
 alias serve='python3 -m http.server 8000'
+
+#for extracting tar.gz files
+alias extract='tar -xvzf'
+
+#for ping
+alias ping='ping -c 6'
+
+#for zoom (boomer app of tsoding)
+alias boomer='boomer -w'
+
+# for disk usage
+alias du='du -hsc'
